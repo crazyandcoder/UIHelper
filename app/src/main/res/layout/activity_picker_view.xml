@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.PickerViewActivity">
+
+    <TextView
+        android:id="@+id/datePicker1Tv"
+        style="@style/function_btn"
+        android:text="全部日期可选择" />
+
+
+    <TextView
+        android:id="@+id/datePicker2Tv"
+        style="@style/function_btn"
+        android:text="只能选择今天之前的" />
+
+
+    <TextView
+        android:id="@+id/datePicker3Tv"
+        style="@style/function_btn"
+        android:text="只能选择今天之后的" />
+
+
+</LinearLayout>
