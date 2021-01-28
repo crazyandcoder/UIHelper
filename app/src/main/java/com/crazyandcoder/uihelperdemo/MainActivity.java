@@ -12,6 +12,7 @@ import android.os.Bundle;
 import com.crazyandcoder.uihelperdemo.adapter.ItemAdapter;
 import com.crazyandcoder.uihelperdemo.bean.Item;
 import com.crazyandcoder.uihelperdemo.ui.PickerViewActivity;
+import com.crazyandcoder.uihelperdemo.ui.TestActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
     private void parseItemData(Item item, int position) {
         Intent intent = new Intent();
         switch (position) {
-            //logger库
             case 0:
+                intent.setClass(this, TestActivity.class);
+                break;
+
+            case 1:
                 intent.setClass(this, PickerViewActivity.class);
                 break;
 
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateItemList() {
         List<Item> itemList = new ArrayList<>();
+        itemList.add(new Item("test", ""));
         itemList.add(new Item("日期选择器", ""));
 
         itemAdapter = new ItemAdapter(this, itemList);

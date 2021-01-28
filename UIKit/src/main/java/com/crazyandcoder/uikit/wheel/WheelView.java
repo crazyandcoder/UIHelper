@@ -2078,9 +2078,6 @@ public class WheelView<T> extends View implements Runnable {
      * 获取弯曲（3D）效果左右圆弧效果方向
      *
      * @return 左右圆弧效果方向
-     * {@link #CURVED_ARC_DIRECTION_LEFT}
-     * {@link #CURVED_ARC_DIRECTION_CENTER}
-     * {@link #CURVED_ARC_DIRECTION_RIGHT}
      */
     public int getCurvedArcDirection() {
         return mCurvedArcDirection;
@@ -2090,9 +2087,6 @@ public class WheelView<T> extends View implements Runnable {
      * 设置弯曲（3D）效果左右圆弧效果方向
      *
      * @param curvedArcDirection 左右圆弧效果方向
-     *                           {@link #CURVED_ARC_DIRECTION_LEFT}
-     *                           {@link #CURVED_ARC_DIRECTION_CENTER}
-     *                           {@link #CURVED_ARC_DIRECTION_RIGHT}
      */
     public void setCurvedArcDirection(@CurvedArcDirection int curvedArcDirection) {
         if (mCurvedArcDirection == curvedArcDirection) {

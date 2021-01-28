@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,6 +23,30 @@
         android:id="@+id/datePicker3Tv"
         style="@style/function_btn"
         android:text="只能选择今天之后的" />
+
+    <com.crazyandcoder.uikit.picker.date.DateTimePickerView
+        android:id="@+id/datePickerView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:visibility="gone" />
+
+    <com.crazyandcoder.uikit.picker.date.YearWheelView
+        android:id="@+id/year"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+
+    <com.crazyandcoder.uikit.picker.date.MonthWheelView
+        android:id="@+id/month"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+
+    <com.crazyandcoder.uikit.picker.date.DayWheelView
+        android:id="@+id/day"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
 
 
 </LinearLayout>
