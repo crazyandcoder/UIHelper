@@ -57,7 +57,7 @@ class DayWheelView : WheelView<Int> {
         val days = mCalendar[Calendar.DATE]
         var list: MutableList<Int>? = cacheDays?.get(days)
 
-        if (list == null) {
+        if (list == null || list.size == 0) {
             list = ArrayList(1)
             for (i in 1..days) {
                 list.add(i)

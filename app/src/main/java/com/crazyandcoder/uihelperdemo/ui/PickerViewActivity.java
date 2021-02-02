@@ -24,9 +24,6 @@ public class PickerViewActivity extends AppCompatActivity {
     private TextView btn2;
     private TextView btn3;
     private DateTimePickerView dateTimePickerView;
-    private YearWheelView year;
-    private MonthWheelView month;
-    private DayWheelView day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +32,15 @@ public class PickerViewActivity extends AppCompatActivity {
         btn1 = findViewById(R.id.datePicker1Tv);
         btn2 = findViewById(R.id.datePicker2Tv);
         btn3 = findViewById(R.id.datePicker3Tv);
-        year = findViewById(R.id.year);
-        month = findViewById(R.id.month);
-        day = findViewById(R.id.day);
 
 
         dateTimePickerView = findViewById(R.id.datePickerView);
+        dateTimePickerView.setOnDateSelectedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(BaseDateTimePickerView datePickerView, int year, int month, int day, Date date) {
+                Toast.makeText(PickerViewActivity.this, "" + date.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,25 +51,9 @@ public class PickerViewActivity extends AppCompatActivity {
     }
 
     private void setWheelViewData() {
-//        dateTimePickerView.setOnDateSelectedListener(new OnDateSelectedListener() {
-//            @Override
-//            public void onDateSelected(BaseDateTimePickerView datePickerView, int year, int month, int day, Date date) {
-//                Toast.makeText(PickerViewActivity.this, "" + date.toString(), Toast.LENGTH_LONG).show();
-//            }
-//        });
 
 
-        year.setMinYear(2000);
-        year.setMaxYear(2050);
 
-        month.setCurrentSelectedYear(2021);
-        month.setMaxYearAndMonth(2030, 8);
-        month.setMinYearAndMonth(2010, 3);
-        month.setMaxMonth(11);
-        month.setMinMonth(2);
-
-        day.setMaxYearMonthAndDay(2030, 2, 11);
-        day.setMinYearMonthAndDay(2010, 11, 21);
 
     }
 }
