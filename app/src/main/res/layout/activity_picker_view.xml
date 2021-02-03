@@ -29,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="50dp"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:textSize="24sp" />
 
 </LinearLayout>

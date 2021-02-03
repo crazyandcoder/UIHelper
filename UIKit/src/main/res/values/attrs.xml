@@ -85,4 +85,13 @@
         <attr name="month" format="integer" />
         <attr name="selectedDay" format="integer" />
     </declare-styleable>
+
+
+    <declare-styleable name="DateTimePickerView">
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="showLabel" format="boolean" />
+    </declare-styleable>
+
+
 </resources>

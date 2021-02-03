@@ -32,6 +32,7 @@ abstract class BaseDateTimePickerView : LinearLayout, OnItemSelectedListener<Int
 
         if (getDatePickerViewLayoutId() != 0) {
             LayoutInflater.from(context).inflate(getDatePickerViewLayoutId(), this)
+
         }
     }
 
@@ -128,6 +129,10 @@ abstract class BaseDateTimePickerView : LinearLayout, OnItemSelectedListener<Int
      */
     @IdRes
     protected abstract fun getDayWheelViewId(): Int
+
+
+
+    protected abstract fun initView();
 
 
 
