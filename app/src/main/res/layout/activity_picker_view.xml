@@ -24,7 +24,7 @@
         style="@style/function_btn"
         android:text="只能选择今天之后的" />
 
-    <com.crazyandcoder.uikit.picker.date.DateTimePickerView
+    <com.crazyandcoder.uikit.widget.date.picker.date.DateTimePickerView
         android:id="@+id/datePickerView"
         android:layout_width="match_parent"
         android:layout_height="200dp"

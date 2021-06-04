@@ -8,12 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crazyandcoder.uihelperdemo.R;
-import com.crazyandcoder.uikit.listener.OnDateSelectedListener;
-import com.crazyandcoder.uikit.picker.date.BaseDateTimePickerView;
-import com.crazyandcoder.uikit.picker.date.DateTimePickerView;
-import com.crazyandcoder.uikit.picker.date.DayWheelView;
-import com.crazyandcoder.uikit.picker.date.MonthWheelView;
-import com.crazyandcoder.uikit.picker.date.YearWheelView;
+import com.crazyandcoder.uikit.widget.date.listener.OnDateSelectedListener;
+import com.crazyandcoder.uikit.widget.date.picker.date.BaseDateTimePickerView;
+import com.crazyandcoder.uikit.widget.date.picker.date.DateTimePickerView;
 
 import java.util.Date;
 

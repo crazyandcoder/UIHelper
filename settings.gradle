@@ -1,4 +1,3 @@
-include ':UtilsKit'
 include ':UIKit'
 include ':app'
 rootProject.name = "UIHelperDemo"

@@ -6,19 +6,19 @@
     android:layout_gravity="center"
     android:orientation="horizontal">
 
-    <com.crazyandcoder.uikit.picker.date.YearWheelView
+    <com.crazyandcoder.uikit.widget.date.picker.date.YearWheelView
         android:id="@+id/yearWheelView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
-    <com.crazyandcoder.uikit.picker.date.MonthWheelView
+    <com.crazyandcoder.uikit.widget.date.picker.date.MonthWheelView
         android:id="@+id/monthWheelView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
-    <com.crazyandcoder.uikit.picker.date.DayWheelView
+    <com.crazyandcoder.uikit.widget.date.picker.date.DayWheelView
         android:id="@+id/dayWheelView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
