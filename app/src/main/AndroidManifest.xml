@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.TestActivity"></activity>
+        <activity android:name=".ui.MonthCalendarActivity"></activity>
+        <activity android:name=".ui.CalendarActivity" />
+        <activity android:name=".ui.TestActivity" />
         <activity android:name=".ui.PickerViewActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
