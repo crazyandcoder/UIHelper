@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="188dp"
+        android:background="@drawable/dialog_sign_calendar_bg"
+        android:orientation="vertical"
+        tools:context=".ui.CalendarActivity">
+
+
+        <TextView
+            android:id="@+id/backTodayTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="15dp"
+            android:text="回到今天"
+            android:textColor="#2884FE"
+            android:textSize="14sp" />
+
+
+        <ImageView
+            android:id="@+id/closeSignCalendarImg"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignTop="@+id/backTodayTv"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_close" />
+
+        <!--星期-->
+        <com.crazyandcoder.uikit.widget.calender.view.WeekLabelTitleView
+            android:id="@+id/weekLabelView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/backTodayTv"
+            android:layout_marginTop="28dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            sy:cl_labelArr="@array/month_view_label_arr"
+            sy:cl_labelTextColor="#999999"
+            sy:cl_labelTextSize="13sp"
+            sy:cl_labelWeekendTextColor="#999999" />
+
+        <com.crazyandcoder.uikit.widget.calender_v2.MonthCalendarView
+            android:id="@+id/monthCalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/weekLabelView" />
+
+    </RelativeLayout>
+</RelativeLayout>
