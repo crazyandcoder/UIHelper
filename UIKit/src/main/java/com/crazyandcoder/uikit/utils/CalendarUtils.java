@@ -77,11 +77,11 @@ public class CalendarUtils {
                 //生成某一天日期实体 日item
                 CalendarData dateBean = new CalendarData();
                 dateBean.setDate(monthCalendar.getTime());
-                dateBean.setDay(monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
+                dateBean.setDay(format.format(monthCalendar.getTime()).equals(getTodayDate()) ? "今天" : monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
                 dateBean.setMonth(formatYYYYMM.format(monthCalendar.getTime()));
                 dateBean.setYearMonthDay(format.format(monthCalendar.getTime()));
                 dateBean.setMonthDay(formatMMDD.format(monthCalendar.getTime()));
-                dateBean.setWeek(getWeekDesc(monthCalendar.get(Calendar.DAY_OF_WEEK)));
+                dateBean.setWeek(format.format(monthCalendar.getTime()).equals(getTodayDate()) ? "今天" : getWeekDesc(monthCalendar.get(Calendar.DAY_OF_WEEK)));
                 dateBeans.add(dateBean);
 
                 //天数加1
@@ -163,7 +163,7 @@ public class CalendarUtils {
                     //生成某一天日期实体 日item
                     CalendarData dateBean = new CalendarData();
                     dateBean.setDate(monthCalendar.getTime());
-                    dateBean.setDay(monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
+                    dateBean.setDay(format.format(monthCalendar.getTime()).equals(getTodayDate()) ? "今" : monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
                     dateBean.setMonth(monthCalendarData.getMonth());
                     dateBean.setYearMonthDay(format.format(monthCalendar.getTime()));
                     dateBean.setMonthDay(formatMMDD.format(monthCalendar.getTime()));
@@ -267,7 +267,7 @@ public class CalendarUtils {
                     //生成某一天日期实体 日item
                     CalendarData dateBean = new CalendarData();
                     dateBean.setDate(monthCalendar.getTime());
-                    dateBean.setDay(monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
+                    dateBean.setDay(format.format(monthCalendar.getTime()).equals(getTodayDate()) ? "今" : monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
                     dateBean.setMonth(monthCalendarData.getMonth());
                     dateBean.setYearMonthDay(format.format(monthCalendar.getTime()));
                     dateBean.setMonthDay(formatMMDD.format(monthCalendar.getTime()));

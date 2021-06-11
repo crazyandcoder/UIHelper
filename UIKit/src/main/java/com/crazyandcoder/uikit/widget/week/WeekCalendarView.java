@@ -174,6 +174,7 @@ public class WeekCalendarView extends FrameLayout {
     public void setDefaultSelectDay(String date) {
         if (date == null || date.equals("")) return;
         CalendarData data = CalendarUtils.getMonthCalendarData(date);
+        selectCalendarData = data;
         updateSelectedDayStatue(data);
     }
 
