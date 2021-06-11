@@ -26,11 +26,13 @@ public class SignCalendarDialog extends AbsCrazyBaseDialog {
     private Context context;
     private ImageView closeSignCalendarImg;
     private String defaultDate;
+    private OnMonthDaySelectListener listener;
 
-    public SignCalendarDialog(@NonNull Context context, String defaultDate) {
+    public SignCalendarDialog(@NonNull Context context, String defaultDate, OnMonthDaySelectListener listener) {
         super(context);
         this.context = context;
         this.defaultDate = defaultDate;
+        this.listener = listener;
     }
 
     @Override
@@ -54,7 +56,9 @@ public class SignCalendarDialog extends AbsCrazyBaseDialog {
         monthCalendarView.setOnDaySelectedListener(new MonthCalendarView.OnDaySelectedListener() {
             @Override
             public void onDay(CalendarData day) {
-                Toast.makeText(context, day.getYearMonthDay(), Toast.LENGTH_LONG).show();
+                if (listener == null) return;
+                listener.onDaySelect(day);
+                dismiss();
             }
         });
 
@@ -62,7 +66,7 @@ public class SignCalendarDialog extends AbsCrazyBaseDialog {
         backTodayTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                monthCalendarView.setDefaultSelectDay("2021-06-10");
+                monthCalendarView.backToday();
             }
         });
 
@@ -77,5 +81,9 @@ public class SignCalendarDialog extends AbsCrazyBaseDialog {
     @Override
     protected void initData() {
 
+    }
+
+    public interface OnMonthDaySelectListener {
+        void onDaySelect(CalendarData day);
     }
 }

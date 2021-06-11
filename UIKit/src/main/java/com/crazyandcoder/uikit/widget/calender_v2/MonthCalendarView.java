@@ -29,6 +29,7 @@ public class MonthCalendarView extends FrameLayout {
     private RecyclerView monthCalendarRecycler;
     private CalendarAdapter adapter;
     private OnDaySelectedListener listener;
+    private CenterGridLayoutManager centerGridLayoutManager;
 
     public MonthCalendarView(@NonNull Context context) {
         this(context, null);
@@ -48,10 +49,12 @@ public class MonthCalendarView extends FrameLayout {
         LayoutInflater.from(context).inflate(R.layout.view_calendar_month, this);
         monthCalendarRecycler = findViewById(R.id.monthRecyclerView);
         adapter = new CalendarAdapter(context, new ArrayList<CalendarData>());
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 7);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        centerGridLayoutManager = new CenterGridLayoutManager(context, 7);
+        centerGridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int i) {
+                //spanCount	每行排列 item 个数，在GridLayoutManager对象创建时需要传入
+                //spanSize	当前位置的 item 跨度大小，在 setSpanSizeLookup() 方法返回
                 if (CalendarData.TYPE_MONTH == adapter.getItemData(i).getItemType()) {
                     return 7;
                 } else {
@@ -59,7 +62,7 @@ public class MonthCalendarView extends FrameLayout {
                 }
             }
         });
-        monthCalendarRecycler.setLayoutManager(gridLayoutManager);
+        monthCalendarRecycler.setLayoutManager(centerGridLayoutManager);
         monthCalendarRecycler.addItemDecoration(new CalendarMonthDecoration());
         monthCalendarRecycler.setAdapter(adapter);
         adapter.setOnRecyclerviewItemClick(new CalendarAdapter.OnRecyclerviewItemClick() {
@@ -95,7 +98,15 @@ public class MonthCalendarView extends FrameLayout {
         CalendarData data = CalendarUtils.getMonthCalendarData(date);
         updateSelectedDayStatue(data);
         int position = adapter.getData().indexOf(data);
-        monthCalendarRecycler.smoothScrollToPosition(position == -1 ? 0 : position);
+        centerGridLayoutManager.smoothScrollToPosition(monthCalendarRecycler, new RecyclerView.State(), position);
+    }
+
+    public void backToday() {
+        String today = CalendarUtils.getTodayDate();
+        if (today == null || today.equals("")) return;
+        CalendarData data = CalendarUtils.getMonthCalendarData(today);
+        int position = adapter.getData().indexOf(data);
+        centerGridLayoutManager.smoothScrollToPosition(monthCalendarRecycler, new RecyclerView.State(), position);
     }
 
     public void initData(String startDate, String endDate) {

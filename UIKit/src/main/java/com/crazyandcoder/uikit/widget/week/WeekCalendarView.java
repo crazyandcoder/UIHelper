@@ -135,7 +135,14 @@ public class WeekCalendarView extends FrameLayout {
     private void updateSelectedDayStatue(CalendarData itemData) {
         if (adapter == null || adapter.getData() == null || adapter.getData().size() == 0) return;
         int position = adapter.getData().indexOf(itemData);
-        updateSelectedDayStatue(itemData, position);
+        if (position != -1) {
+            updateSelectedDayStatue(itemData, position);
+        } else {
+            adapter.getData().clear();
+            adapter.getData().addAll(CalendarUtils.getWeekCalendarData(itemData.getYearMonthDay(), 30, 7));
+            int newPosition = adapter.getData().indexOf(itemData);
+            updateSelectedDayStatue(itemData, newPosition);
+        }
     }
 
     /**
