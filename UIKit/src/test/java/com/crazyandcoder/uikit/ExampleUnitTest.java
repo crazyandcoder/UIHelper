@@ -1,7 +1,13 @@
 package com.crazyandcoder.uikit;
 
+import com.crazyandcoder.uikit.widget.calender_v2.CalendarData;
+
 import org.junit.Test;
 
+import java.util.List;
+
+import static com.crazyandcoder.uikit.utils.CalendarUtils.getMonthCalendarData;
+import static com.crazyandcoder.uikit.utils.CalendarUtils.getWeekCalendarData;
 import static org.junit.Assert.*;
 
 /**
@@ -12,6 +18,7 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+        List<CalendarData> list = getMonthCalendarData("2021-06-10", 1, 1);
+        System.out.println(list.size());
     }
 }

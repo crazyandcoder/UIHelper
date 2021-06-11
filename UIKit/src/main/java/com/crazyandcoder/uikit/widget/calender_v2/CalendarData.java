@@ -31,7 +31,36 @@ public class CalendarData {
     private String month;
 
     //yyyy-MM-dd
-    private String formatDate;
+    private String yearMonthDay;
+
+
+    private String monthDay;
+    private String week;
+    private String desc;
+
+    public String getMonthDay() {
+        return monthDay;
+    }
+
+    public void setMonthDay(String monthDay) {
+        this.monthDay = monthDay;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
+    }
+
+    public String getDesc() {
+        return desc == null ? "" : desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
     private boolean selected;
 
@@ -83,12 +112,12 @@ public class CalendarData {
         this.month = month;
     }
 
-    public String getFormatDate() {
-        return formatDate == null ? "" : formatDate;
+    public String getYearMonthDay() {
+        return yearMonthDay == null ? "" : yearMonthDay;
     }
 
-    public void setFormatDate(String formatDate) {
-        this.formatDate = formatDate;
+    public void setYearMonthDay(String yearMonthDay) {
+        this.yearMonthDay = yearMonthDay;
     }
 
     @Override
@@ -96,11 +125,11 @@ public class CalendarData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CalendarData data = (CalendarData) o;
-        return formatDate.equals(data.formatDate);
+        return yearMonthDay.equals(data.yearMonthDay);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(formatDate);
+        return Objects.hash(yearMonthDay);
     }
 }

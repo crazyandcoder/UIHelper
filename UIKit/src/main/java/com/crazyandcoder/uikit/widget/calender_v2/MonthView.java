@@ -35,7 +35,7 @@ public class MonthView extends FrameLayout {
     }
 
     private void initView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.item_calendar_month, this);
+        LayoutInflater.from(context).inflate(R.layout.view_calendar_month, this);
 
     }
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.crazyandcoder.uikit.R;
+import com.crazyandcoder.uikit.utils.CalendarUtils;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class MonthCalendarView extends FrameLayout {
 
 
-    private RecyclerView calendarRecycler;
+    private RecyclerView monthCalendarRecycler;
     private CalendarAdapter adapter;
     private OnDaySelectedListener listener;
 
@@ -44,8 +45,8 @@ public class MonthCalendarView extends FrameLayout {
     }
 
     private void initView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.item_calendar, this);
-        calendarRecycler = findViewById(R.id.calendarRecyclerView);
+        LayoutInflater.from(context).inflate(R.layout.view_calendar_month, this);
+        monthCalendarRecycler = findViewById(R.id.monthRecyclerView);
         adapter = new CalendarAdapter(context, new ArrayList<CalendarData>());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 7);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -58,9 +59,9 @@ public class MonthCalendarView extends FrameLayout {
                 }
             }
         });
-        calendarRecycler.setLayoutManager(gridLayoutManager);
-        calendarRecycler.addItemDecoration(new CalendarMonthDecoration());
-        calendarRecycler.setAdapter(adapter);
+        monthCalendarRecycler.setLayoutManager(gridLayoutManager);
+        monthCalendarRecycler.addItemDecoration(new CalendarMonthDecoration());
+        monthCalendarRecycler.setAdapter(adapter);
         adapter.setOnRecyclerviewItemClick(new CalendarAdapter.OnRecyclerviewItemClick() {
             @Override
             public void onItemClick(View v, int position) {
@@ -79,7 +80,7 @@ public class MonthCalendarView extends FrameLayout {
     private void updateSelectedDayStatue(CalendarData itemData) {
         if (adapter == null || adapter.getData() == null || adapter.getData().size() == 0) return;
         for (CalendarData data : adapter.getData()) {
-            data.setSelected(itemData.getFormatDate().equals(data.getFormatDate()));
+            data.setSelected(itemData.getYearMonthDay().equals(data.getYearMonthDay()));
         }
         adapter.notifyDataSetChanged();
     }
@@ -91,15 +92,15 @@ public class MonthCalendarView extends FrameLayout {
      */
     public void setDefaultSelectDay(String date) {
         if (date == null || date.equals("")) return;
-        CalendarData data = CalendarUtils.getCalendarData(date);
+        CalendarData data = CalendarUtils.getMonthCalendarData(date);
         updateSelectedDayStatue(data);
         int position = adapter.getData().indexOf(data);
-        calendarRecycler.smoothScrollToPosition(position == -1 ? 0 : position);
+        monthCalendarRecycler.smoothScrollToPosition(position == -1 ? 0 : position);
     }
 
     public void initData(String startDate, String endDate) {
         adapter.getData().clear();
-        adapter.getData().addAll(CalendarUtils.getCalendarData(startDate, endDate));
+        adapter.getData().addAll(CalendarUtils.getMonthCalendarData(startDate, endDate));
     }
 
     public void updateData() {

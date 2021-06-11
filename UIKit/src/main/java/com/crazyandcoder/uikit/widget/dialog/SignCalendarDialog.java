@@ -54,7 +54,7 @@ public class SignCalendarDialog extends AbsCrazyBaseDialog {
         monthCalendarView.setOnDaySelectedListener(new MonthCalendarView.OnDaySelectedListener() {
             @Override
             public void onDay(CalendarData day) {
-                Toast.makeText(context, day.getFormatDate(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, day.getYearMonthDay(), Toast.LENGTH_LONG).show();
             }
         });
 
