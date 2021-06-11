@@ -49,7 +49,7 @@ public class CenterLayoutManager extends LinearLayoutManager {
 
         @Override
         protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
-            return 100f / displayMetrics.densityDpi;
+            return 50f / displayMetrics.densityDpi;
         }
     }
 }
