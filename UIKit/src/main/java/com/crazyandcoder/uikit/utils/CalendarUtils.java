@@ -96,9 +96,6 @@ public class CalendarUtils {
     }
 
 
-
-
-
     /**
      * 根据指定的日期，获取前 beforeMonth 个月和 afterMonth 个月的日期数据
      * author  liji
@@ -423,5 +420,18 @@ public class CalendarUtils {
             mWay = "六";
         }
         return mWay;
+    }
+
+    /**
+     * 返回现在的本地的日期
+     * author  liji
+     * time    6/11/21 10:45 AM
+     */
+    public static String getTodayDate() {
+        Date dt = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String today = sdf.format(dt);
+        return today == null ? "" : today;
+
     }
 }

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.crazyandcoder.uikit.R;
+import com.crazyandcoder.uikit.utils.ScreenUtil;
 import com.crazyandcoder.uikit.widget.calender_v2.CalendarData;
 
 import java.util.ArrayList;
@@ -29,10 +30,12 @@ public class WeekCalendarAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private Context context;
     private List<CalendarData> list;
+    private int monthCalendarWidth;
 
-    public WeekCalendarAdapter(Context context, List<CalendarData> list) {
+    public WeekCalendarAdapter(Context context, List<CalendarData> list, int monthCalendarWidth) {
         this.context = context;
         this.list = list;
+        this.monthCalendarWidth = monthCalendarWidth;
     }
 
     private WeekCalendarAdapter.OnRecyclerviewItemClick onRecyclerviewItemClick;
@@ -69,6 +72,11 @@ public class WeekCalendarAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         vh.weekTv.setText(getItemData(position).getWeek());
         vh.dayDescTv.setText("" + getItemData(position).getDesc());
         vh.dayBgL.setSelected(getItemData(position).isSelected());
+
+        ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) vh.dayBgL.getLayoutParams();
+        layoutParams.width = (ScreenUtil.getInstance(vh.dayBgL.getContext()).getScreenWidth() - monthCalendarWidth) / 5;
+        vh.dayBgL.setLayoutParams(layoutParams);
+
     }
 
     @Override

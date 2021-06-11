@@ -10,11 +10,12 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.crazyandcoder.uikit.R;
 import com.crazyandcoder.uikit.utils.CalendarUtils;
+import com.crazyandcoder.uikit.utils.DpSpUtils;
 import com.crazyandcoder.uikit.widget.calender_v2.CalendarData;
 
 import java.util.ArrayList;
@@ -35,6 +36,9 @@ public class WeekCalendarView extends FrameLayout {
     private OnMonthCalendarShowListener listener;
 
     private CalendarData selectCalendarData;
+    private CenterLayoutManager centerLayoutManager;
+    private CalendarData todayCalendarData;
+
 
     public WeekCalendarView(@NonNull Context context) {
         this(context, null);
@@ -56,10 +60,12 @@ public class WeekCalendarView extends FrameLayout {
         monthCalendarL = findViewById(R.id.monthCalendarL);
         backTodayImg = findViewById(R.id.backTodayImg);
 
-        adapter = new WeekCalendarAdapter(context, new ArrayList<CalendarData>());
 
-        HorizontalLayoutManager linearLayoutManager = new HorizontalLayoutManager(1,5);
-        weekRecyclerView.setLayoutManager(linearLayoutManager);
+        adapter = new WeekCalendarAdapter(context, new ArrayList<CalendarData>(), DpSpUtils.dp2px(45));
+
+        centerLayoutManager = new CenterLayoutManager(context);
+        centerLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+        weekRecyclerView.setLayoutManager(centerLayoutManager);
 
         weekRecyclerView.setAdapter(adapter);
         adapter.setOnRecyclerviewItemClick(new WeekCalendarAdapter.OnRecyclerviewItemClick() {
@@ -67,7 +73,7 @@ public class WeekCalendarView extends FrameLayout {
             public void onItemClick(View v, int position) {
                 if (listener == null || adapter == null) return;
                 selectCalendarData = adapter.getItemData(position);
-                updateSelectedDayStatue(adapter.getItemData(position));
+                updateSelectedDayStatue(adapter.getItemData(position), position);
             }
         });
 
@@ -85,10 +91,18 @@ public class WeekCalendarView extends FrameLayout {
         backTodayImg.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener == null) return;
-                listener.monthCalendar(selectCalendarData);
+                backToday();
             }
         });
+    }
+
+    /**
+     * 回到今天
+     * author  liji
+     * time    6/11/21 11:21 AM
+     */
+    private void backToday() {
+        setDefaultSelectDay(CalendarUtils.getTodayDate());
     }
 
 
@@ -99,7 +113,7 @@ public class WeekCalendarView extends FrameLayout {
      */
     public void initData(String startDate) {
         adapter.getData().clear();
-        adapter.getData().addAll(CalendarUtils.getWeekCalendarData(startDate, 30,7));
+        adapter.getData().addAll(CalendarUtils.getWeekCalendarData(startDate, 30, 7));
     }
 
 
@@ -108,12 +122,41 @@ public class WeekCalendarView extends FrameLayout {
      * author  liji
      * time    6/10/21 1:51 PM
      */
-    private void updateSelectedDayStatue(CalendarData itemData) {
+    private void updateSelectedDayStatue(CalendarData itemData, int position) {
         if (adapter == null || adapter.getData() == null || adapter.getData().size() == 0) return;
         for (CalendarData data : adapter.getData()) {
             data.setSelected(itemData.getYearMonthDay().equals(data.getYearMonthDay()));
         }
         adapter.notifyDataSetChanged();
+        checkBackTodayStatue(itemData);
+        smoothScrollToCenter(itemData, position);
+    }
+
+    private void updateSelectedDayStatue(CalendarData itemData) {
+        if (adapter == null || adapter.getData() == null || adapter.getData().size() == 0) return;
+        int position = adapter.getData().indexOf(itemData);
+        updateSelectedDayStatue(itemData, position);
+    }
+
+    /**
+     * 将选中的日期滚动到屏幕中间
+     * author  liji
+     * time    6/11/21 11:01 AM
+     */
+    private void smoothScrollToCenter(CalendarData itemData, int position) {
+        centerLayoutManager.smoothScrollToPosition(weekRecyclerView, new RecyclerView.State(), position);
+    }
+
+    /**
+     * 检测是否显示回到今天
+     * author  liji
+     * time    6/11/21 10:42 AM
+     */
+    private void checkBackTodayStatue(CalendarData itemData) {
+        if (itemData == null || itemData.getYearMonthDay().equals("")) return;
+        String now = CalendarUtils.getTodayDate();
+        if (now.equals("")) return;
+        backTodayImg.setVisibility(now.equals(itemData.getYearMonthDay()) ? View.GONE : View.VISIBLE);
     }
 
     /**
@@ -125,8 +168,6 @@ public class WeekCalendarView extends FrameLayout {
         if (date == null || date.equals("")) return;
         CalendarData data = CalendarUtils.getMonthCalendarData(date);
         updateSelectedDayStatue(data);
-        int position = adapter.getData().indexOf(data);
-        weekRecyclerView.smoothScrollToPosition(position == -1 ? 0 : position);
     }
 
 

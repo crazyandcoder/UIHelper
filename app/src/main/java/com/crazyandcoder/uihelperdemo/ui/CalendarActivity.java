@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.crazyandcoder.uihelperdemo.R;
 import com.crazyandcoder.uikit.widget.calender_v2.CalendarData;
-import com.crazyandcoder.uikit.widget.calender_v2.MonthCalendarView;
 import com.crazyandcoder.uikit.widget.dialog.SignCalendarDialog;
 import com.crazyandcoder.uikit.widget.week.WeekCalendarView;
 
