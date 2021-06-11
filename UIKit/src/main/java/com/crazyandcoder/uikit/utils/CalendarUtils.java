@@ -191,11 +191,174 @@ public class CalendarUtils {
 
 
     /**
+     * 根据指定的日期，获取前 beforeMonth 个月和 afterMonth 个月的日期数据
+     * author  liji
+     * time    6/10/21 8:49 PM
+     * asc: 月份是否从小到大显示
+     */
+    public static List<CalendarData> getMonthCalendarData(String indexDateStr, int beforeMonth, int afterMonth, boolean asc) {
+        List<CalendarData> dateBeans = new ArrayList<>();
+        //日期格式化
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatYYYYMM = new SimpleDateFormat("yyyy-MM");
+        SimpleDateFormat formatMMDD = new SimpleDateFormat("MM-dd");
+
+        try {
+            Calendar calendar = Calendar.getInstance();
+            //指定日期
+            Date indexDate = indexDateStr == null || indexDateStr.equals("") ? new Date() : new SimpleDateFormat("yyyy-MM-dd").parse(indexDateStr);
+            calendar.setTime(indexDate);
+
+            //当前日期前 beforeMonth 个月
+            calendar.add(Calendar.MONTH, -beforeMonth);
+            Date startDate = new Date(calendar.getTimeInMillis());
+
+
+            //当前日期后 afterMonth 个月
+            calendar.setTime(indexDate);
+            calendar.add(Calendar.MONTH, afterMonth);
+            Date endDate = new Date(calendar.getTimeInMillis());
+
+
+            //开始月份的1号开始
+            calendar.setTime(asc ? startDate : endDate);
+
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            Calendar monthCalendar = Calendar.getInstance();
+
+            if (asc) {
+                //按月生成日历 每行7个 最多6行 42个
+                for (; calendar.getTimeInMillis() <= endDate.getTime(); ) {
+                    //月份item
+                    CalendarData monthCalendarData = new CalendarData();
+                    monthCalendarData.setDate(calendar.getTime());
+                    monthCalendarData.setMonth(formatYYYYMM.format(monthCalendarData.getDate()));
+                    monthCalendarData.setItemType(CalendarData.TYPE_MONTH);
+                    dateBeans.add(monthCalendarData);
+
+                    //开始月份
+                    monthCalendar.setTime(calendar.getTime());
+                    //开始月份的1号
+                    monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
+
+                    //加一个月
+                    monthCalendar.add(Calendar.MONTH, 1);
+                    //开始月份的最后一天
+                    monthCalendar.add(Calendar.DAY_OF_MONTH, -1);
+                    Date endMonthDay = monthCalendar.getTime();
+
+                    //生成单个月的日历，重置每个月的1号日期
+                    monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
+                    for (; monthCalendar.getTimeInMillis() <= endMonthDay.getTime(); ) {
+                        //处理一个月开始的第一天
+                        if (monthCalendar.get(Calendar.DAY_OF_MONTH) == 1) {
+                            //看某个月第一天是周几，之前的日期全部填充空白
+                            int weekDay = monthCalendar.get(Calendar.DAY_OF_WEEK);
+                            firstDayPlaceholder(weekDay, dateBeans, monthCalendarData);
+                        }
+
+                        //生成某一天日期实体 日item
+                        CalendarData dateBean = new CalendarData();
+                        dateBean.setDate(monthCalendar.getTime());
+                        dateBean.setDay(format.format(monthCalendar.getTime()).equals(getTodayDate()) ? "今" : monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
+                        dateBean.setMonth(monthCalendarData.getMonth());
+                        dateBean.setYearMonthDay(format.format(monthCalendar.getTime()));
+                        dateBean.setMonthDay(formatMMDD.format(monthCalendar.getTime()));
+                        dateBean.setWeek(getWeekDesc(monthCalendar.get(Calendar.DAY_OF_WEEK)));
+                        dateBeans.add(dateBean);
+
+                        //处理一个月的最后一天
+                        if (monthCalendar.getTimeInMillis() == endMonthDay.getTime()) {
+                            //看某个月第一天是周几
+                            int weekDay = monthCalendar.get(Calendar.DAY_OF_WEEK);
+                            lastDayPlaceholder(weekDay, dateBeans, monthCalendarData);
+                        }
+
+                        //天数加1
+                        monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
+                    }
+                    //月份加1
+                    calendar.add(Calendar.MONTH, 1);
+                }
+            } else {
+                //按月生成日历 每行7个 最多6行 42个
+                for (; calendar.getTimeInMillis() >= startDate.getTime(); ) {
+                    //月份item
+                    CalendarData monthCalendarData = new CalendarData();
+                    monthCalendarData.setDate(calendar.getTime());
+                    monthCalendarData.setMonth(formatYYYYMM.format(monthCalendarData.getDate()));
+                    monthCalendarData.setItemType(CalendarData.TYPE_MONTH);
+                    dateBeans.add(monthCalendarData);
+
+                    //开始月份
+                    monthCalendar.setTime(calendar.getTime());
+                    //开始月份的1号
+                    monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
+
+                    //加一个月
+                    monthCalendar.add(Calendar.MONTH, 1);
+                    //开始月份的最后一天
+                    monthCalendar.add(Calendar.DAY_OF_MONTH, -1);
+                    Date endMonthDay = monthCalendar.getTime();
+
+                    //生成单个月的日历，重置每个月的1号日期
+                    monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
+                    for (; monthCalendar.getTimeInMillis() <= endMonthDay.getTime(); ) {
+                        //处理一个月开始的第一天
+                        if (monthCalendar.get(Calendar.DAY_OF_MONTH) == 1) {
+                            //看某个月第一天是周几，之前的日期全部填充空白
+                            int weekDay = monthCalendar.get(Calendar.DAY_OF_WEEK);
+                            firstDayPlaceholder(weekDay, dateBeans, monthCalendarData);
+                        }
+
+                        //生成某一天日期实体 日item
+                        CalendarData dateBean = new CalendarData();
+                        dateBean.setDate(monthCalendar.getTime());
+                        dateBean.setDay(format.format(monthCalendar.getTime()).equals(getTodayDate()) ? "今" : monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
+                        dateBean.setMonth(monthCalendarData.getMonth());
+                        dateBean.setYearMonthDay(format.format(monthCalendar.getTime()));
+                        dateBean.setMonthDay(formatMMDD.format(monthCalendar.getTime()));
+                        dateBean.setWeek(getWeekDesc(monthCalendar.get(Calendar.DAY_OF_WEEK)));
+                        dateBeans.add(dateBean);
+
+                        //处理一个月的最后一天
+                        if (monthCalendar.getTimeInMillis() == endMonthDay.getTime()) {
+                            //看某个月第一天是周几
+                            int weekDay = monthCalendar.get(Calendar.DAY_OF_WEEK);
+                            lastDayPlaceholder(weekDay, dateBeans, monthCalendarData);
+                        }
+
+                        //天数加1
+                        monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
+                    }
+                    //月份加1
+                    calendar.add(Calendar.MONTH, -1);
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateBeans;
+    }
+
+
+    /**
      * 生成指定日期的月日历数据
      * author  liji
      * time    6/10/21 2:42 PM
      */
     public static List<CalendarData> getMonthCalendarData(String sDate, String eDate) {
+        return getMonthCalendarData(sDate, eDate, true);
+    }
+
+
+    /**
+     * 生成指定日期的月日历数据
+     * author  liji
+     * time    6/10/21 2:42 PM
+     * asc:是否月份从小到大，正序排序，1月～12月
+     */
+    public static List<CalendarData> getMonthCalendarData(String sDate, String eDate, boolean asc) {
         List<CalendarData> dateBeans = new ArrayList<>();
         try {
             Calendar calendar = Calendar.getInstance();
@@ -226,66 +389,125 @@ public class CalendarUtils {
             String startDateStr = format.format(startDate);
             startDate = format.parse(startDateStr);
 
-            calendar.setTime(startDate);
+
+            calendar.setTime(asc ? startDate : endDate);
 
 
             calendar.set(Calendar.DAY_OF_MONTH, 1);
             Calendar monthCalendar = Calendar.getInstance();
 
 
-            //按月生成日历 每行7个 最多6行 42个
-            //每一行有七个日期  日 一 二 三 四 五 六 的顺序
-            for (; calendar.getTimeInMillis() <= endDate.getTime(); ) {
+            //正序排序，月份从小到大
+            if (asc) {
+                //按月生成日历 每行7个 最多6行 42个
+                //每一行有七个日期  日 一 二 三 四 五 六 的顺序
+                for (; calendar.getTimeInMillis() <= endDate.getTime(); ) {
 
-                //月份item
-                CalendarData monthCalendarData = new CalendarData();
-                monthCalendarData.setDate(calendar.getTime());
-                monthCalendarData.setMonth(formatYYYYMM.format(monthCalendarData.getDate()));
-                monthCalendarData.setItemType(CalendarData.TYPE_MONTH);
-                dateBeans.add(monthCalendarData);
+                    //月份item
+                    CalendarData monthCalendarData = new CalendarData();
+                    monthCalendarData.setDate(calendar.getTime());
+                    monthCalendarData.setMonth(formatYYYYMM.format(monthCalendarData.getDate()));
+                    monthCalendarData.setItemType(CalendarData.TYPE_MONTH);
+                    dateBeans.add(monthCalendarData);
 
-                //获取一个月结束的日期和开始日期
-                monthCalendar.setTime(calendar.getTime());
-                monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
+                    //获取一个月结束的日期和开始日期
+                    monthCalendar.setTime(calendar.getTime());
+                    monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
 
-                monthCalendar.add(Calendar.MONTH, 1);
-                monthCalendar.add(Calendar.DAY_OF_MONTH, -1);
-                Date endMonthDay = monthCalendar.getTime();
+                    monthCalendar.add(Calendar.MONTH, 1);
+                    monthCalendar.add(Calendar.DAY_OF_MONTH, -1);
+                    Date endMonthDay = monthCalendar.getTime();
 
-                //重置为本月开始
-                monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
+                    //重置为本月开始
+                    monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
 
-                for (; monthCalendar.getTimeInMillis() <= endMonthDay.getTime(); ) {
-                    //生成单个月的日历
-                    //处理一个月开始的第一天
-                    if (monthCalendar.get(Calendar.DAY_OF_MONTH) == 1) {
-                        //看某个月第一天是周几，之前的日期全部填充空白
-                        int weekDay = monthCalendar.get(Calendar.DAY_OF_WEEK);
-                        firstDayPlaceholder(weekDay, dateBeans, monthCalendarData);
+                    for (; monthCalendar.getTimeInMillis() <= endMonthDay.getTime(); ) {
+                        //生成单个月的日历
+                        //处理一个月开始的第一天
+                        if (monthCalendar.get(Calendar.DAY_OF_MONTH) == 1) {
+                            //看某个月第一天是周几，之前的日期全部填充空白
+                            int weekDay = monthCalendar.get(Calendar.DAY_OF_WEEK);
+                            firstDayPlaceholder(weekDay, dateBeans, monthCalendarData);
+                        }
+
+                        //生成某一天日期实体 日item
+                        CalendarData dateBean = new CalendarData();
+                        dateBean.setDate(monthCalendar.getTime());
+                        dateBean.setDay(format.format(monthCalendar.getTime()).equals(getTodayDate()) ? "今" : monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
+                        dateBean.setMonth(monthCalendarData.getMonth());
+                        dateBean.setYearMonthDay(format.format(monthCalendar.getTime()));
+                        dateBean.setMonthDay(formatMMDD.format(monthCalendar.getTime()));
+                        dateBean.setWeek(getWeekDesc(monthCalendar.get(Calendar.DAY_OF_WEEK)));
+                        dateBeans.add(dateBean);
+
+                        //处理一个月的最后一天
+                        if (monthCalendar.getTimeInMillis() == endMonthDay.getTime()) {
+                            //看某个月第一天是周几
+                            int weekDay = monthCalendar.get(Calendar.DAY_OF_WEEK);
+                            lastDayPlaceholder(weekDay, dateBeans, monthCalendarData);
+                        }
+
+                        //天数加1
+                        monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
                     }
-
-                    //生成某一天日期实体 日item
-                    CalendarData dateBean = new CalendarData();
-                    dateBean.setDate(monthCalendar.getTime());
-                    dateBean.setDay(format.format(monthCalendar.getTime()).equals(getTodayDate()) ? "今" : monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
-                    dateBean.setMonth(monthCalendarData.getMonth());
-                    dateBean.setYearMonthDay(format.format(monthCalendar.getTime()));
-                    dateBean.setMonthDay(formatMMDD.format(monthCalendar.getTime()));
-                    dateBean.setWeek(getWeekDesc(monthCalendar.get(Calendar.DAY_OF_WEEK)));
-                    dateBeans.add(dateBean);
-
-                    //处理一个月的最后一天
-                    if (monthCalendar.getTimeInMillis() == endMonthDay.getTime()) {
-                        //看某个月第一天是周几
-                        int weekDay = monthCalendar.get(Calendar.DAY_OF_WEEK);
-                        lastDayPlaceholder(weekDay, dateBeans, monthCalendarData);
-                    }
-
-                    //天数加1
-                    monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
+                    //月份加1
+                    calendar.add(Calendar.MONTH, 1);
                 }
-                //月份加1
-                calendar.add(Calendar.MONTH, 1);
+            } else {
+                //按月生成日历 每行7个 最多6行 42个
+                //每一行有七个日期  日 一 二 三 四 五 六 的顺序
+                for (; calendar.getTimeInMillis() >= startDate.getTime(); ) {
+
+                    //月份item
+                    CalendarData monthCalendarData = new CalendarData();
+                    monthCalendarData.setDate(calendar.getTime());
+                    monthCalendarData.setMonth(formatYYYYMM.format(monthCalendarData.getDate()));
+                    monthCalendarData.setItemType(CalendarData.TYPE_MONTH);
+                    dateBeans.add(monthCalendarData);
+
+                    //获取一个月结束的日期和开始日期
+                    monthCalendar.setTime(calendar.getTime());
+                    monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
+
+                    monthCalendar.add(Calendar.MONTH, 1);
+                    monthCalendar.add(Calendar.DAY_OF_MONTH, -1);
+                    Date endMonthDay = monthCalendar.getTime();
+
+                    //重置为本月开始
+                    monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
+
+                    for (; monthCalendar.getTimeInMillis() <= endMonthDay.getTime(); ) {
+                        //生成单个月的日历
+                        //处理一个月开始的第一天
+                        if (monthCalendar.get(Calendar.DAY_OF_MONTH) == 1) {
+                            //看某个月第一天是周几，之前的日期全部填充空白
+                            int weekDay = monthCalendar.get(Calendar.DAY_OF_WEEK);
+                            firstDayPlaceholder(weekDay, dateBeans, monthCalendarData);
+                        }
+
+                        //生成某一天日期实体 日item
+                        CalendarData dateBean = new CalendarData();
+                        dateBean.setDate(monthCalendar.getTime());
+                        dateBean.setDay(format.format(monthCalendar.getTime()).equals(getTodayDate()) ? "今" : monthCalendar.get(Calendar.DAY_OF_MONTH) + "");
+                        dateBean.setMonth(monthCalendarData.getMonth());
+                        dateBean.setYearMonthDay(format.format(monthCalendar.getTime()));
+                        dateBean.setMonthDay(formatMMDD.format(monthCalendar.getTime()));
+                        dateBean.setWeek(getWeekDesc(monthCalendar.get(Calendar.DAY_OF_WEEK)));
+                        dateBeans.add(dateBean);
+
+                        //处理一个月的最后一天
+                        if (monthCalendar.getTimeInMillis() == endMonthDay.getTime()) {
+                            //看某个月第一天是周几
+                            int weekDay = monthCalendar.get(Calendar.DAY_OF_WEEK);
+                            lastDayPlaceholder(weekDay, dateBeans, monthCalendarData);
+                        }
+
+                        //天数加1
+                        monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
+                    }
+                    //月份加1
+                    calendar.add(Calendar.MONTH, -1);
+                }
             }
 
         } catch (Exception ex) {

@@ -111,7 +111,7 @@ public class MonthCalendarView extends FrameLayout {
 
     public void initData(String startDate, String endDate) {
         adapter.getData().clear();
-        adapter.getData().addAll(CalendarUtils.getMonthCalendarData(startDate, endDate));
+        adapter.getData().addAll(CalendarUtils.getMonthCalendarData(startDate, endDate, false));
     }
 
     public void updateData() {
