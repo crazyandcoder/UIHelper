@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="52dp">
+    android:id="@+id/dayBgL"
+    android:background="@drawable/ic_calendar_month_item_day"
+    android:layout_height="54dp">
 
     <LinearLayout
-        android:id="@+id/dayBgL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ic_calendar_month_item_day"
-        android:gravity="center"
+        android:layout_marginTop="9dp"
         android:orientation="vertical">
 
         <TextView

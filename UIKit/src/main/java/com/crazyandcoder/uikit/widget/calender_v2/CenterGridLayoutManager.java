@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.crazyandcoder.uikit.widget.week.CenterLayoutManager;
-
 /**
  * desc:
  * author: created by liji

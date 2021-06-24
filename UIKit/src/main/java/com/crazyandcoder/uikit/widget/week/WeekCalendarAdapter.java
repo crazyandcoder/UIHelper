@@ -72,6 +72,7 @@ public class WeekCalendarAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         vh.weekTv.setText(getItemData(position).getWeek());
         vh.dayDescTv.setText("" + getItemData(position).getDesc());
         vh.dayBgL.setSelected(getItemData(position).isSelected());
+        vh.dayLineView.setVisibility(getItemData(position).isHide() ? View.GONE : View.VISIBLE);
 
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) vh.dayBgL.getLayoutParams();
         layoutParams.width = (ScreenUtil.getInstance(vh.dayBgL.getContext()).getScreenWidth() - monthCalendarWidth) / 5;
@@ -93,10 +94,12 @@ public class WeekCalendarAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public TextView weekTv;
         public TextView dateTv;
         public TextView dayDescTv;
+        public View dayLineView;
         public RelativeLayout dayBgL;
 
         public DayViewHolder(@NonNull View itemView) {
             super(itemView);
+            dayLineView = itemView.findViewById(R.id.dayLineView);
             dayBgL = itemView.findViewById(R.id.dayBgL);
             dateTv = itemView.findViewById(R.id.dateTv);
             weekTv = itemView.findViewById(R.id.weekTv);

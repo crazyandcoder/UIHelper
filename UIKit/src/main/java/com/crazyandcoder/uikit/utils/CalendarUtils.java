@@ -351,6 +351,20 @@ public class CalendarUtils {
         return getMonthCalendarData(sDate, eDate, true);
     }
 
+    /**
+     * 转换成年月日，yyyy-MM-dd
+     * author  liji
+     * time    6/23/21 11:50 AM
+     */
+    private static String formatDate(String date) {
+        if (date == null || date.equals("")) return CalendarUtils.getTodayDate();
+        String[] split = date.split("-");
+        if (split == null) return CalendarUtils.getTodayDate();
+        else if (split.length == 3) return date;
+        else if (split.length == 2) return date + "-01";
+        else if (split.length < 2) return CalendarUtils.getTodayDate();
+        return date;
+    }
 
     /**
      * 生成指定日期的月日历数据
@@ -366,6 +380,9 @@ public class CalendarUtils {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat formatYYYYMM = new SimpleDateFormat("yyyy-MM");
             SimpleDateFormat formatMMDD = new SimpleDateFormat("MM-dd");
+
+            sDate = formatDate(sDate);
+            eDate = formatDate(eDate);
 
             //起始日期
             Date startDate = sDate == null || sDate.equals("") ? new Date() : new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
@@ -613,6 +630,25 @@ public class CalendarUtils {
                 return "周六";
         }
         return "";
+    }
+
+    /**
+     * 获取当前月份的相隔 index  个月份的数据
+     * author  liji
+     * time    6/17/21 3:48 PM
+     */
+    public static String getMonthDate(int index) {
+        Calendar monthCalendar = Calendar.getInstance();
+        monthCalendar.setTime(new Date());
+        //天数加1
+        monthCalendar.add(Calendar.MONTH, index);
+        if (index > 0) {
+            monthCalendar.set(Calendar.DAY_OF_MONTH, 0);
+        } else {
+            monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(monthCalendar.getTime());
     }
 
 

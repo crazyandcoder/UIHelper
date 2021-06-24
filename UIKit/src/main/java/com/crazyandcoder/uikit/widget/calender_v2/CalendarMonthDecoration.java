@@ -33,12 +33,16 @@ public class CalendarMonthDecoration extends RecyclerView.ItemDecoration {
             return;
         }
         //头部的高度
-        int height = Utils.dip2px(parent.getContext(), 50f);
+        int height = Utils.dip2px(parent.getContext(), 40f);
         //获取第一个可见的view，通过此view获取其对应的月份
         CalendarAdapter calendarAdapter = (CalendarAdapter) parent.getAdapter();
         View fistView = parent.getChildAt(0);
-        String text = calendarAdapter.getData().get(parent.getChildAdapterPosition(fistView)).getMonth();
+        String month = calendarAdapter.getData().get(parent.getChildAdapterPosition(fistView)).getMonth();
+        String[] split = month.split("-");
+        if (split == null || split.length != 2) return;
+        String text = split[0] + "年" + split[1] + "月";
         String fistMonthStr = "";
+
         int fistViewTop = 0;
         //查找当前可见的itemView中第一个月份类型的item
         for (int i = 0; i < parent.getChildCount(); i++) {

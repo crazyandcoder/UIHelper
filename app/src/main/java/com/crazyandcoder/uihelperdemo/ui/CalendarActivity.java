@@ -30,7 +30,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private void showSignCalendarDialog(String defaultDate) {
-        SignCalendarDialog dialog = new SignCalendarDialog(this, defaultDate, new SignCalendarDialog.OnMonthDaySelectListener() {
+        SignCalendarDialog dialog = new SignCalendarDialog(this,"2021-01", "2021-12",defaultDate, new SignCalendarDialog.OnMonthDaySelectListener() {
             @Override
             public void onDaySelect(CalendarData day) {
                 weekCalendarView.setDefaultSelectDay(day.getYearMonthDay());

@@ -27,8 +27,10 @@ public class CalendarData {
     private Date date;
     //一个月的某天
     private String day;
-    //月份
+    //年月份****-**
     private String month;
+    //年月分-****年**月
+    private String monthDesc;
 
     //yyyy-MM-dd
     private String yearMonthDay;
@@ -37,6 +39,25 @@ public class CalendarData {
     private String monthDay;
     private String week;
     private String desc;
+
+    //是否显示
+    private boolean hide;
+
+    public boolean isHide() {
+        return hide;
+    }
+
+    public void setHide(boolean hide) {
+        this.hide = hide;
+    }
+
+    public String getMonthDesc() {
+        return monthDesc;
+    }
+
+    public void setMonthDesc(String monthDesc) {
+        this.monthDesc = monthDesc;
+    }
 
     public String getMonthDay() {
         return monthDay;

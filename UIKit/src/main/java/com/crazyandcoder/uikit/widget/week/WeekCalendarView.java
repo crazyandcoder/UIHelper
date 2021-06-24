@@ -124,8 +124,21 @@ public class WeekCalendarView extends FrameLayout {
      */
     private void updateSelectedDayStatue(CalendarData itemData, int position) {
         if (adapter == null || adapter.getData() == null || adapter.getData().size() == 0) return;
-        for (CalendarData data : adapter.getData()) {
-            data.setSelected(itemData.getYearMonthDay().equals(data.getYearMonthDay()));
+        int index = -1;
+        for (int i = 0; i < adapter.getData().size(); i++) {
+            adapter.getData().get(i).setHide(false);
+            if (itemData.getYearMonthDay().equals(adapter.getData().get(i).getYearMonthDay())) {
+                adapter.getData().get(i).setSelected(true);
+                index = i;
+            } else {
+                adapter.getData().get(i).setSelected(false);
+            }
+        }
+        if (index != -1) {
+            adapter.getData().get(index).setHide(true);
+            //第二个和倒数第二个之间的范围，选中的话隐藏分割线
+            if (index - 1 >= 0)
+                adapter.getData().get(index - 1).setHide(true);
         }
         adapter.notifyDataSetChanged();
         checkBackTodayStatue(itemData);

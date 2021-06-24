@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -75,7 +76,11 @@ public class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             vh.dayBgL.setSelected(getItemData(position).isSelected());
             vh.dayTv.setTextColor(getItemData(position).isSelected() ? Color.parseColor("#ffffff") : Color.parseColor("#333333"));
         } else if (holder instanceof CalendarAdapter.MonthViewHolder) {
-            ((MonthViewHolder) holder).montTv.setText(getItemData(position).getMonth());
+            String month = getItemData(position).getMonth();
+            String[] split = month.split("-");
+            if (split == null || split.length != 2) return;
+            String text = split[0] + "年" + split[1] + "月";
+            ((MonthViewHolder) holder).montTv.setText(text);
         }
     }
 
@@ -92,7 +97,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public class DayViewHolder extends RecyclerView.ViewHolder {
         public TextView dayTv;
         public TextView dayDescTv;
-        public LinearLayout dayBgL;
+        public RelativeLayout dayBgL;
 
         public DayViewHolder(@NonNull View itemView) {
             super(itemView);

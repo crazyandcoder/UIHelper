@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -73,6 +74,24 @@ public class MonthCalendarView extends FrameLayout {
                 updateSelectedDayStatue(adapter.getItemData(position));
             }
         });
+        monthCalendarRecycler.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    CenterGridLayoutManager manager = (CenterGridLayoutManager) recyclerView.getLayoutManager();
+                    int start = manager.findFirstCompletelyVisibleItemPosition();
+                    int end = manager.findLastCompletelyVisibleItemPosition();
+                    Toast.makeText(getContext(), "" + adapter.getData().get(start).getMonth() + "  end: " + adapter.getData().get(end).getMonth(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
     }
 
     /**

@@ -36,8 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/weekTv"
-        android:layout_marginTop="2dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
         android:gravity="center"
         android:textColor="#333333"
@@ -47,11 +47,12 @@
 
 
     <View
+        android:id="@+id/dayLineView"
         android:layout_width="1dp"
         android:layout_height="32dp"
-        android:layout_marginTop="7dp"
         android:layout_alignTop="@+id/dateTv"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="7dp"
         android:background="#E4E4E4" />
 
 </RelativeLayout>
