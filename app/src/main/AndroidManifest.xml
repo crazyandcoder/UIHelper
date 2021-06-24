@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.CalendarActivity"></activity>
-        <activity android:name=".ui.MonthCalendarActivity" />
-        <activity android:name=".ui.TestActivity" />
-        <activity android:name=".ui.PickerViewActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

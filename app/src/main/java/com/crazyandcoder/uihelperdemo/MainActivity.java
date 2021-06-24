@@ -12,10 +12,6 @@ import android.os.Bundle;
 import com.crazyandcoder.uihelperdemo.adapter.ItemAdapter;
 import com.crazyandcoder.uihelperdemo.bean.Item;
 import com.crazyandcoder.uihelperdemo.ui.CalendarActivity;
-import com.crazyandcoder.uihelperdemo.ui.MonthCalendarActivity;
-import com.crazyandcoder.uihelperdemo.ui.PickerViewActivity;
-import com.crazyandcoder.uihelperdemo.ui.TestActivity;
-import com.crazyandcoder.uikit.widget.calender_v2.CalendarAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,24 +49,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         switch (position) {
             case 0:
-                intent.setClass(this, TestActivity.class);
-                break;
-
-            case 1:
-                intent.setClass(this, PickerViewActivity.class);
-                break;
-
-            case 2:
-                intent.setClass(this, MonthCalendarActivity.class);
-                break;
-
-            case 3:
                 intent.setClass(this, CalendarActivity.class);
-                break;
-
-
-            default:
-                intent.setClass(this, MainActivity.class);
                 break;
 
         }
@@ -79,10 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateItemList() {
         List<Item> itemList = new ArrayList<>();
-        itemList.add(new Item("test", ""));
-        itemList.add(new Item("日期选择器", ""));
         itemList.add(new Item("日历选择器", "月日历组件"));
-        itemList.add(new Item("日历选择器V2", "月日历组件"));
 
         itemAdapter = new ItemAdapter(this, itemList);
         recyclerView.setAdapter(itemAdapter);

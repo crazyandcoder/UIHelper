@@ -35,7 +35,7 @@
             android:src="@drawable/ic_close" />
 
         <!--星期-->
-        <com.crazyandcoder.uikit.widget.calender.view.WeekLabelTitleView
+        <com.crazyandcoder.uikit.widget.calender_v1.view.title.WeekLabelTitleView
             android:id="@+id/weekLabelView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             sy:cl_labelTextSize="13sp"
             sy:cl_labelWeekendTextColor="#999999" />
 
-        <com.crazyandcoder.uikit.widget.calender_v2.MonthCalendarView
+        <com.crazyandcoder.uikit.widget.calender_v1.view.month.MonthCalendarView
             android:id="@+id/monthCalendarView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

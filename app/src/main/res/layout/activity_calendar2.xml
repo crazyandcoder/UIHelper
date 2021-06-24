@@ -9,9 +9,19 @@
     tools:context=".ui.CalendarActivity">
 
 
-    <com.crazyandcoder.uikit.widget.week.WeekCalendarView
+    <com.crazyandcoder.uikit.widget.calender_v1.view.week.WeekCalendarView
         android:id="@+id/weekCalendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:textColor="#333333"
+        android:text="结果："
+        android:textSize="18sp" />
 
 </LinearLayout>

@@ -2,7 +2,7 @@ package com.crazyandcoder.uikit.utils;
 
 import android.annotation.SuppressLint;
 
-import com.crazyandcoder.uikit.widget.calender_v2.CalendarData;
+import com.crazyandcoder.uikit.widget.calender_v1.bean.CalendarData;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
