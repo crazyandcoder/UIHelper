@@ -153,4 +153,15 @@ public class CalendarData {
     public int hashCode() {
         return Objects.hash(yearMonthDay);
     }
+
+    @Override
+    public String toString() {
+        return "CalendarData{" +
+                "day='" + day + '\'' +
+                ", month='" + month + '\'' +
+                ", yearMonthDay='" + yearMonthDay + '\'' +
+                ", monthDay='" + monthDay + '\'' +
+                ", week='" + week + '\'' +
+                '}';
+    }
 }

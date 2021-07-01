@@ -75,8 +75,9 @@ public class WeekCalendarView extends FrameLayout {
             @Override
             public void onItemClick(View v, int position) {
                 if (listener == null || adapter == null) return;
-                selectCalendarData = adapter.getItemData(position);
                 updateSelectedDayStatue(adapter.getItemData(position), position);
+                selectCalendarData = adapter.getItemData(position);
+                if (listener!=null)listener.onWeekCalendarSelect(selectCalendarData);
             }
         });
 
@@ -86,7 +87,7 @@ public class WeekCalendarView extends FrameLayout {
             @Override
             public void onClick(View v) {
                 if (listener == null) return;
-                listener.onSelected(selectCalendarData);
+                listener.onMonthCalendarShow(selectCalendarData);
             }
         });
 

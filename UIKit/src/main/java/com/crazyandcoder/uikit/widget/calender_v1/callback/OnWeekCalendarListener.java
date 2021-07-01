@@ -16,5 +16,13 @@ public interface OnWeekCalendarListener {
      * author  liji
      * time    6/24/21 10:38 AM
      */
-    void onSelected(CalendarData data);
+    void onMonthCalendarShow(CalendarData data);
+
+
+    /**
+     * 周日历选择
+     * author  liji
+     * time    7/1/21 4:28 PM
+     */
+    void onWeekCalendarSelect(CalendarData data);
 }

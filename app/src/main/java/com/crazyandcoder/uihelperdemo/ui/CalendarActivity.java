@@ -24,15 +24,20 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar2);
         result = findViewById(R.id.result);
         weekCalendarView = findViewById(R.id.weekCalendarView);
-
+        result.setText("选择结果：" + CalendarUtils.getTodayDate());
 
         //周日历初始化数据
         weekCalendarView.initData(CalendarUtils.getTodayDate());
         weekCalendarView.setDefaultSelectDay(CalendarUtils.getTodayDate());
         weekCalendarView.setOnWeekCalendarListener(new OnWeekCalendarListener() {
             @Override
-            public void onSelected(CalendarData data) {
+            public void onMonthCalendarShow(CalendarData data) {
                 showSignCalendarDialog(data.getYearMonthDay());
+            }
+
+            @Override
+            public void onWeekCalendarSelect(CalendarData data) {
+                result.setText("选择结果：" + data.toString());
             }
         });
     }
@@ -47,6 +52,7 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onSelected(CalendarData day) {
                 weekCalendarView.setDefaultSelectDay(day.getYearMonthDay());
+                result.setText("选择结果：" + day.toString());
             }
         });
         dialog.show();
