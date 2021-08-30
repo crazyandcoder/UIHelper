@@ -86,7 +86,6 @@ public class MonthCalendarView extends FrameLayout {
                     MonthCenterGridLayoutManager manager = (MonthCenterGridLayoutManager) recyclerView.getLayoutManager();
                     int start = manager.findFirstCompletelyVisibleItemPosition();
                     int end = manager.findLastCompletelyVisibleItemPosition();
-                    Toast.makeText(getContext(), "" + adapter.getData().get(start).getMonth() + "  end: " + adapter.getData().get(end).getMonth(), Toast.LENGTH_LONG).show();
                 }
             }
 

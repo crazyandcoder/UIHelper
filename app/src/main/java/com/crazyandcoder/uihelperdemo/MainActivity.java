@@ -12,6 +12,7 @@ import android.os.Bundle;
 import com.crazyandcoder.uihelperdemo.adapter.ItemAdapter;
 import com.crazyandcoder.uihelperdemo.bean.Item;
 import com.crazyandcoder.uihelperdemo.ui.CalendarActivity;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerview);
+
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
